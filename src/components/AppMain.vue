@@ -1,20 +1,25 @@
 <script>
 import { store } from "../store.js";
+import AppCardProduct from "./AppCardProduct.vue";
+
 export default {
     data() {
         return {
             store,
         };
     },
+    components: { AppCardProduct },
 };
 </script>
     
 <template>
-    <div v-for="(film) in store.filmList">
-        <h3>{{ film.title }}</h3>
-        <h4>{{ film.original_title }}</h4>
-        <p>{{ film.original_language }}</p>
-        <p>{{ film.vote_average }}</p>
+    <h2>Movies:</h2>
+    <div v-for="(films) in store.filmList">
+        <AppCardProduct :product="films" />
+    </div>
+    <h2>Serie tv:</h2>
+    <div v-for="(series) in store.serieList">
+        <AppCardProduct :product="series" />
     </div>
 </template>
 

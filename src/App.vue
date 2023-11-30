@@ -16,17 +16,20 @@ export default {
     components: { AppHeader,AppMain },
     methods: {
         searchCommand() {
+            const params = {
+                api_key: store.apiKey,
+                query: store.searchText,
+            };
             axios
-            .get("https://api.themoviedb.org/3/search/movie", {
-                params: {
-                    api_key:
-                    "8d0af0e8c106b67078b532b5534ebd50",
-                    query: store.searchText,
-                }
-            }).then((resp) => {
-                console.log(resp);
+            .get(`${store.baseUrl}/search/movie`, { params })
+            .then((resp) => {
                 store.filmList = resp.data.results;
-            })
+            });
+            axios
+            .get(`${store.baseUrl}/search/tv`, { params })
+            .then((resp) => {
+                store.serieList = resp.data.results;
+            });
         },
     },
 };
